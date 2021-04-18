@@ -1,0 +1,144 @@
+Permutation Coefficient
+
+    Difficulty Level : Easy
+    Last Updated : 15 Apr, 2021
+
+Permutation refers to the process of arranging all the members of a given set to form a sequence. The number of permutations on a set of n elements is given by n! , where “!” represents factorial. 
+
+The Permutation Coefficient represented by P(n, k) is used to represent the number of ways to obtain an ordered subset having k elements from a set of n elements.
+Mathematically it’s given as: 
+ 
+
+permu
+
+Image Source : Wiki
+Examples : 
+
+P(10, 2) = 90
+P(10, 3) = 720
+P(10, 0) = 1
+P(10, 1) = 10
+
+The coefficient can also be computed recursively using the below recursive formula:  
+
+
+P(n, k) = P(n-1, k) + k* P(n-1, k-1)   
+
+If we observe closely, we can analyze that the problem has overlapping substructure, hence we can apply dynamic programming here. Below is a program implementing the same idea. 
+
+# A Dynamic Programming based
+# solution that uses
+# table P[][] to calculate the
+# Permutation Coefficient
+ 
+# Returns value of Permutation
+# Coefficient P(n, k)
+def permutationCoeff(n, k):
+ 
+    P = [[0 for i in range(k + 1)]
+            for j in range(n + 1)]
+ 
+    # Calculate value of Permutation
+    # Coefficient in
+    # bottom up manner
+    for i in range(n + 1):
+        for j in range(min(i, k) + 1):
+ 
+            # Base cases
+            if (j == 0):
+                P[i][j] = 1
+ 
+            # Calculate value using
+            # previously stored values
+            else:
+                P[i][j] = P[i - 1][j] + (
+                        j * P[i - 1][j - 1])
+ 
+            # This step is important
+            # as P(i, j) = 0 for j>i
+            if (j < k):
+                P[i][j + 1] = 0
+    return P[n][k]
+ 
+# Driver Code
+n = 10
+k = 2
+print("Value fo P(", n, ", ", k, ") is ",
+    permutationCoeff(n, k), sep = "")
+ 
+# This code is contributed by Soumen Ghosh.
+
+Output : 
+
+Value of P(10, 2) is 90 
+
+Here as we can see the time complexity is O(n*k) and space complexity is O(n*k) as the program uses an auxiliary matrix to store the result.
+
+Can we do it in O(n) time ?
+Let us suppose we maintain a single 1D array to compute the factorials up to n. We can use computed factorial value and apply the formula P(n, k) = n! / (n-k)!. Below is a program illustrating the same concept.
+
+# A O(n) solution that uses
+# table fact[] to calculate
+# the Permutation Coefficient
+ 
+# Returns value of Permutation
+# Coefficient P(n, k)
+def permutationCoeff(n, k):
+    fact = [0 for i in range(n + 1)]
+ 
+    # base case
+    fact[0] = 1
+ 
+    # Calculate value
+    # factorials up to n
+    for i in range(1, n + 1):
+        fact[i] = i * fact[i - 1]
+ 
+    # P(n, k) = n!/(n-k)!
+    return int(fact[n] / fact[n - k])
+ 
+# Driver Code
+n = 10
+k = 2
+print("Value of P(", n, ", ", k, ") is ",
+        permutationCoeff(n, k), sep = "")
+ 
+# This code is contributed
+# by Soumen Ghosh
+
+Output :
+
+Value of P(10, 2) is 90 
+
+A O(n) time and O(1) Extra Space Solution 
+
+// A O(n) time and O(1) extra
+// space solution to calculate
+// the Permutation Coefficient
+#include <iostream>
+using namespace std;
+ 
+int PermutationCoeff(int n, int k)
+{
+    int P = 1;
+ 
+    // Compute n*(n-1)*(n-2)....(n-k+1)
+    for (int i = 0; i < k; i++)
+        P *= (n-i) ;
+ 
+    return P;
+}
+ 
+// Driver Code
+int main()
+{
+    int n = 10, k = 2;
+    cout << "Value of P(" << n << ", " << k
+         << ") is " << PermutationCoeff(n, k);
+ 
+    return 0;
+}
+
+Output : 
+
+Value of P(10, 2) is 90 
