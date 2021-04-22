@@ -1,3 +1,25 @@
+#User function Template for python3
+
+class Solution:
+    def countWays(self,n,k):
+        total = k
+        mod = 1000000007
+     
+        same, diff = 0, k
+     
+        for i in range(2, n + 1) :
+            same = diff
+     
+
+            diff = total * (k - 1)
+            diff = diff % mod
+            total = (same + diff) % mod
+         
+        return total
+
+
+#___________________________________________________________________________________________________
+
 def countWays(n, k):
      
     dp = [0] * (n + 1)
