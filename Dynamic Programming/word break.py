@@ -1,6 +1,26 @@
 
 #Practice  : https://practice.geeksforgeeks.org/problems/word-break1352/1
 
+
+#REcursion -----------------------
+
+def wordbreak(i,j):
+    if i <= -1 or j <= -1:
+        return False
+    
+    if i < j:
+        if A[i:j] in dictionary and i == 0:
+            return True
+        elif A[i:j] in dictionary:
+            return wordbreak(i-1,i)
+        else:
+            return wordbreak(i-1,j)
+    return False
+
+
+
+#---------------------DP ====================
+
 def wordBreak(line, dictionary):
     dp = [False for _ in range(len(line)+1)]
     
