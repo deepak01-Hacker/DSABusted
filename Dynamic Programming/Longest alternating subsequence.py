@@ -46,6 +46,28 @@ def longestAlternateSubsequence(arr):
             maxs = max(dp[j][1],maxs)
     return maxs
             
+# ----------------------------- variation of Kadane
+def longestattributesSequenceRun(arr,n):
+    inc = 1
+    dec = 1
+     
+    # Iterate from second element
+    for i in range(1,n):
+       
+        if (arr[i] > arr[i-1]):
+           
+            # "inc" changes iff "dec"
+            # changes
+            inc = dec + 1
+        elif (arr[i] < arr[i-1]):
+           
+            # "dec" changes iff "inc"
+            # changes
+            dec = inc + 1
+             
+    # Return the maximum length
+    return max(inc, dec)
+    
 
 if __name__ == "__main__":
     #arr = [1,5,4]
