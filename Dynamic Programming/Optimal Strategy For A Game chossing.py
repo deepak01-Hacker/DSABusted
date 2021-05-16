@@ -66,5 +66,5 @@ if __name__ == '__main__':
     for cases in range(test_cases):
         n = int(input())
         arr = list(map(int,input().strip().split()))
-        print(optimalStrategyOfGame(arr,n))
+        print(optimalStrategyOfGame(arr,n))#
 
