@@ -1,4 +1,4 @@
-# The Algorithms - Python ,CPP
+# DSA BUSTED - Python ,CPP
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod&style=flat-square)](https://gitpod.io/#https://github.com/deepak01-Hacker/DSABusted)&nbsp;
 [![Gitter chat](https://img.shields.io/badge/Chat-Gitter-ff69b4.svg?label=Chat&logo=gitter&style=flat-square)](https://gitter.im/TheAlgorithms)&nbsp;
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/TheAlgorithms/Python/build?label=CI&logo=github&style=flat-square)](https://github.com/deepak01-Hacker/DSABusted/actions)&nbsp;
@@ -12,6 +12,7 @@
 ### All algorithms implemented in Python (for education)
 
 These implementations are for learning purposes only. Therefore they may be less efficient than the implementations in the Python standard library.
+Some important algorithms have been done here which have been repeating in the Good Product based company for a long time.
 
 ## Contribution Guidelines
 
