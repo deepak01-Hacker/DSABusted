@@ -1,3 +1,56 @@
+
+#----------------------- Heap =================================
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+import heapq as hp
+
+class Solution(object):
+    def mergeKLists(self, lists):
+        head = None
+        tempHead = None
+
+        heap = []
+        hp.heapify(heap)
+        
+        for i in range(len(lists)):
+            if lists[i] != None:
+                hp.heappush(heap,[lists[i].val,lists[i]])
+        
+        while(heap):
+            popNode = hp.heappop(heap)
+            
+            if head == None:
+                head = popNode[1]
+                tempHead = head
+            else:
+                tempHead.next = popNode[1]
+                tempHead = tempHead.next
+            
+            if popNode[1].next != None:
+                hp.heappush(heap,[popNode[1].next.val,popNode[1].next])
+            
+        return head
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, val=0, next=None):
