@@ -48,3 +48,52 @@ class Solution(object):
             ans.append(st)
 
         return ans
+    
+    
+   <JAVA SOLUtion>class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> res = new LinkedList<String>();
+        StringBuilder line = new StringBuilder();
+        int blanknum = 0;
+        int wordnum = 0;
+        int remainer = 0;
+        int index = 0;
+        for(String i : words){
+            if(line.length()==0){
+                line.append(i);
+            }else if(line.length()+1+i.length()<=maxWidth){
+                line.append(" ");
+                line.append(i);
+            }else{
+                if(wordnum==1){
+                    while(line.length()<maxWidth){
+                        line.append(" ");
+                    }
+                }else{                
+                    blanknum = (maxWidth - line.length())/(wordnum-1);
+                    remainer = (maxWidth - line.length())%(wordnum-1);
+                    line.delete(0, line.length()); 
+                    for(int k=index-wordnum;k<index;k++){
+                        line.append(words[k]);
+                        if(line.length()<maxWidth){
+                            for(int j=0;j<(k-index+wordnum<remainer?blanknum+2:blanknum+1);j++){
+                                line.append(" ");
+                            }
+                        }
+                    }
+                }
+                res.add(line.toString());
+                line.delete(0,line.length()); 
+                line.append(i);
+                wordnum=0;
+            }
+            index++;
+            wordnum++;
+        }
+        while(line.length()<maxWidth){
+            line.append(" ");
+        }
+        res.add(line.toString());
+        return res;
+    }
+}</>
