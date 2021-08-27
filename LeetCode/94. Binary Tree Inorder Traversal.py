@@ -24,4 +24,32 @@ class Solution(object):
         self.inoUtil(root,inorder)
         
         return inorder
+    
+    
+    #--------------------- With -Stack ---------------------
+    
+    
+
+class Solution(object):
+        
+    def inorderTraversal(self, root):
+        if root is None:
+            return []
+        
+        inorder = []
+        stack = []
+        
+        while(True):
+            if root:
+                stack.append(root)
+                root = root.left
+                
+            elif stack:
+                inorder.append(stack[-1].val)
+                root = stack[-1].right
+                stack.pop()
+            else:
+                break
+                
+        return inorder
         
