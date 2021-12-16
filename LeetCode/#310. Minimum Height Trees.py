@@ -1,63 +1,60 @@
 class Solution(object):
     
+    def __init__(self):
+        self.adj = {}
+        self.degree = []
+        self.V = 0
+        
+    
 
-    def util(self,graph,i):
-        visited = set()
+    
 
-        q = []
-        q.append([i,0])
-
-        hight = 0
-
-        while(q):
-            root,level = q.pop(0)
-            visited.add(root)
-
-            for vert in graph[root]:
-
-                if vert not in visited:
-                    q.append([vert,level+1])
-            hight = max(hight,level)
-
-        return hight+1 
-
-    def minimumHeights(self,edges,n):
-
-        graph = {}
-
+    def findMinHeightTrees(self, V, edges):
+        if V == 1:
+            return [0]
+        self.degree = [0]*V
+        self.V = V
+        
         for i,j in edges:
-            if i in graph.keys():
-                graph[i].append(j)
+            self.degree[i] += 1
+            self.degree[j] += 1
+            if i in self.adj.keys():
+                self.adj[i].append(j)
             else:
-                graph[i] = []
-                graph[i].append(j)
+                self.adj[i] = []
+                self.adj[i].append(j)
 
-            if j in graph.keys():
-                graph[j].append(i)
+            if j in self.adj.keys():
+                self.adj[j].append(i)
             else:
-                graph[j] = []
-                graph[j].append(i)
+                self.adj[j] = []
+                self.adj[j].append(i)
+    
+        from Queue import Queue
+        q = Queue()
 
-        res = []
-        mini = n+1
+        # First enqueue all leaf nodes in queue
+        for i in range(self.V):
+            if self.degree[i] == 1:
+                q.put(i)
 
-        for i in range(n):
-            hight = self.util(graph,i)
+        # loop until total vertex remains less than 2
+        while(self.V > 2):
+            p = q.qsize()
+            self.V -= p
+            for i in range(p):
+                t = q.get()
 
-            #print(hight)
+                # for each neighbour, decrease its degree and
+                # if it become leaf, insert into queue
+                for j in self.adj[t]:
+                    self.degree[j] -= 1
+                    if self.degree[j] == 1:
+                        q.put(j)
 
-            if mini > hight:
-                res = []
-                res.append(i)
-                mini = hight
-
-            elif mini == hight:
-                res.append(i)
+        #  Copying the result from queue to result vector
+        res = list()
+        while(q.qsize() > 0):
+            res.append(q.get())
 
         return res
-
-    def findMinHeightTrees(self, n, edges):
-        if n == 1:
-            return [0]
-        return self.minimumHeights(edges,n)
-        
